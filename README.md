@@ -4,5 +4,5 @@
 Gameset
 =======
 
-A set of go packages and command line programs for modeling simple games at the command line.
+A set of go packages and command line programs for modeling simple games.
 
