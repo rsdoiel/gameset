@@ -31,7 +31,7 @@ Rolling one twenty sided dice.
 Rolling a three four sided dices plus two.
 
 ```
-    roll 3d4+2
+	roll 3d4+2
 ```
 
 

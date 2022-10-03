@@ -9,6 +9,7 @@ This map is provided to test the "gs" verb provided by pttk cli.
 
 hGitHub Repo	GET /rsdoiel/gameset	github.com	80
 
-0README	/README.md	localhost	7000
-0CITATION	/CITATION.cff	localhost	7000
+0README	README.md	localhost	7000
+1User manual	user-manual.gophermap	localhost	7000
+0CITATION	CITATION.cff	localhost	7000
 

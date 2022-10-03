@@ -47,7 +47,7 @@ func MakeDeck(suites []string, faces []string) *Deck {
 		for _, face := range faces {
 			var card string
 			if suit != "" {
-				card = fmt.Sprintf("%s%s", face, suit)
+				card = fmt.Sprintf("%s of %s", face, suit)
 			} else {
 				card = face
 			}
