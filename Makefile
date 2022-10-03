@@ -53,9 +53,9 @@ $(PROGRAMS): cmd/*/*.go $(PACKAGE)
 	go build -o bin/$@$(EXT) cmd/$@/*.go
 
 man: $(PROGRAMS)
-	mkdir -p man/man1
-	for FNAME in $(PROGRAMS); do ./bin/$$FNAME --help >$$FNAME.1.md; done
-	for FNAME in $(PROGRAMS); do pandoc $$FNAME.1.md -s --to man >man/man1/$$FNAME.1; done
+	@mkdir -p man/man1
+	@for FNAME in $(PROGRAMS); do ./bin/$$FNAME --help >$$FNAME.1.md; done
+	@for FNAME in $(PROGRAMS); do pandoc $$FNAME.1.md -s --to man >man/man1/$$FNAME.1; done
 
 
 # NOTE: on macOS you must use "mv" instead of "cp" to avoid problems

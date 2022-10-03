@@ -1,15 +1,15 @@
-1PTTK	/	localhost	7000
-
-Welcome to gameset
-
-     gameset is a collection of go packages I wrote for
-     implementing simple games.
-
-This map is provided to test the "gs" verb provided by pttk cli.
-
+i
+iWelcome to gameset
+i
+i     gameset is a collection of go packages I wrote for
+i     implementing simple games.
+i
+iThis map is provided to test the "gs" verb provided by pttk cli.
+i
 hGitHub Repo	GET /rsdoiel/gameset	github.com	80
-
+i
 0README	README.md	localhost	7000
 1User manual	user-manual.gophermap	localhost	7000
+0About	about.md	localhost	7000
 0CITATION	CITATION.cff	localhost	7000
 
