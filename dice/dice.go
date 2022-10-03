@@ -9,8 +9,15 @@ import (
 	"time"
 )
 
+// Dice models a dice of N sides where N must be a postive
+// integer greater than zero. If N is greater than zero a
+// random value in the range of 1 to N is returned. If not
+// a negative one is returned.
 func Dice(noOfSides int) int {
-	return rand.Intn(noOfSides)
+	if noOfSides < 1 {
+		return -1
+	}
+	return rand.Intn(noOfSides) + 1
 }
 
 func ParseRoll(src string) (int, int, int, error) {
