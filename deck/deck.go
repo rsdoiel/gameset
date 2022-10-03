@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"sort"
 	"strings"
+	"time"
 )
 
 // Deck holds the state of cards in play. I represents generally
@@ -19,8 +20,8 @@ type Deck struct {
 	Cards        []string            `json:"cards"`
 	Play         []string            `json:"play"`
 	Discarded    []string            `json:"discard"`
-	HandsHeld    map[string][]string `json:"heldHands"`
-	HandsVisible map[string][]string `json:"visibleHands"`
+	HandsHeld    map[string][]string `json:"hands_held"`
+	HandsVisible map[string][]string `json:"handls_visible"`
 }
 
 // MakeDeck builds an set of cards based on symbol (string)
@@ -31,6 +32,7 @@ type Deck struct {
 // suites := []string{ "Hart", "Club", "Diamond", "Spade" }
 // faces := []string{ "Ace", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack","Queen", "King" }
 // deck := MakeDeck("hi_card_wins", suites, faces)
+//
 // ```
 func MakeDeck(suites []string, faces []string) *Deck {
 	deck := new(Deck)
@@ -50,7 +52,6 @@ func MakeDeck(suites []string, faces []string) *Deck {
 				card = face
 			}
 			deck.Cards = append(deck.Cards, card)
-			deck.Play = append(deck.Play, card)
 		}
 	}
 	return deck
@@ -69,12 +70,15 @@ func MakeStandardDeck() *Deck {
 	return MakeDeck(suites, faces)
 }
 
-func (deck *Deck) SetGame(name string) {
-	deck.Game = name
-}
-
-func (deck *Deck) SetPlayers(names []string) {
-	deck.Players = names[:]
+// SetupGame sets up an existing deck of cards for initial play.
+func (deck *Deck) SetupGame(gameName string, players []string) {
+	deck.Game = gameName
+	deck.Players = append([]string{}, players...)
+	// Reset the deck of cards
+	deck.Play = append([]string{}, deck.Cards...)
+	deck.Discarded = []string{}
+	deck.HandsHeld = map[string][]string{}
+	deck.HandsVisible = map[string][]string{}
 }
 
 // Shuffles randomizes order of the cards in Play
@@ -85,9 +89,6 @@ func (deck *Deck) SetPlayers(names []string) {
 //
 // ```
 func (deck *Deck) Shuffle() {
-	if len(deck.Play) == 0 {
-		deck.Play = deck.Cards[:]
-	}
 	rand.Shuffle(len(deck.Play), func(i, j int) {
 		deck.Play[i], deck.Play[j] = deck.Play[j], deck.Play[i]
 	})
@@ -99,27 +100,28 @@ func (deck *Deck) DiscardToPlay() {
 	deck.Play = append(deck.Play, deck.Discarded...)
 }
 
-// Deal takes an ordered list of players and a count and
-// forms hands for each player by randomly drawing from the
-// deck in play.
+// Deal takes an integer for the number of cards to be dealt
+// based on the current list of players associated with deck
+// and deals cards to each player.
 //
 // ```
 // // cards are dealt to players in order of slice
-// err := deck.Deal([]string{"player1", "player2"}, 3)
+// deck.SetupGame("high card", []string{"player1","player2"})
+// err := deck.Deal(3)
 // ```
-func (deck *Deck) Deal(players []string, cardCount int) error {
+func (deck *Deck) Deal(cardCount int) error {
 	var card string
 
-	if len(players) < 1 {
+	if len(deck.Players) < 1 {
 		return fmt.Errorf("not enough players")
 	}
 
-	if len(deck.Play) < (len(players) * cardCount) {
+	if len(deck.Play) < (len(deck.Players) * cardCount) {
 		return fmt.Errorf("not enough cards to deal")
 	}
 
 	for i := 0; i < cardCount; i++ {
-		for _, player := range players {
+		for _, player := range deck.Players {
 			card, deck.Play = deck.Play[0], deck.Play[1:]
 			deck.HandsHeld[player] = append(deck.HandsHeld[player], card)
 		}
@@ -196,12 +198,24 @@ func (deck *Deck) Shown(player string) []string {
 // // ... handle errors ...
 // ```
 func (deck *Deck) Draw(player string, count int) ([]string, error) {
-	if count >= len(deck.Play) {
-		return nil, fmt.Errorf("not enough cards to draw")
+	if count <= 0 {
+		return nil, fmt.Errorf("count must be a positive integer greater than zero")
 	}
-	drawn, remaining := deck.Play[0:count], deck.Play[count+1:]
+	if count > len(deck.Play) {
+		return nil, fmt.Errorf("not enough cards to draw %d -> %d", count, len(deck.Play))
+	}
+	var drawn []string
+
+	// draw the cards from deck
+	drawn = append(drawn, deck.Play[0:count]...)
 	deck.HandsHeld[player] = append(deck.HandsHeld[player], drawn...)
-	deck.Play = remaining[:]
+
+	// Update the cards in play
+	if count < len(deck.Play) {
+		deck.Play = append([]string{}, deck.Play[count:]...)
+	} else {
+		deck.Play = []string{}
+	}
 	return drawn, nil
 }
 
@@ -258,54 +272,46 @@ func (deck *Deck) Pickup(player string, n int) error {
 // TakeHeld takes a card by card name from a player and
 // and puts it into the hand of another player. Returns an error
 // if not available. E.g. like when playing Go Fish
-func (deck *Deck) TakeHeld(originName string, receivingName string, card string) error {
-	originHand := deck.Hand(originName)
-	if len(originHand) == 0 {
-		return fmt.Errorf("%s has no cards", originName)
+func (deck *Deck) TakeHeld(requesting string, responding string, card string) error {
+	respondingHand := deck.Hand(responding)
+	if len(respondingHand) == 0 {
+		return fmt.Errorf("%s has no cards", responding)
 	}
 	pos := -1
-	for i, aCard := range originHand {
+	for i, aCard := range respondingHand {
 		if strings.Compare(aCard, card) == 0 {
 			pos = i
 			break
 		}
 	}
 	if pos == -1 {
-		return fmt.Errorf("card not found in %s's hand", originName)
+		return fmt.Errorf("card not found in %s's hand", responding)
 	}
-	if pos == 0 {
-		deck.HandsHeld[originName] = deck.HandsHeld[originName][1:]
-	} else {
-		deck.HandsHeld[originName] = append(deck.HandsHeld[originName][0:pos], deck.HandsHeld[originName][pos+1:]...)
-	}
-	deck.HandsHeld[receivingName] = append(deck.HandsHeld[receivingName], card)
+	deck.HandsHeld[responding] = append(deck.HandsHeld[responding][0:pos], deck.HandsHeld[responding][pos+1:]...)
+	deck.HandsHeld[requesting] = append(deck.HandsHeld[requesting], card)
 	return nil
 }
 
 // TakeVisible takes a card by card name from a player and
 // puts it into a player's held hand. Returns an error if card not
 // available.
-func (deck *Deck) TakeVisible(originName string, receivingName string, card string) error {
-	originHand := deck.HandVisible(originName)
-	if len(originHand) == 0 {
-		return fmt.Errorf("%s has no cards", originName)
+func (deck *Deck) TakeVisible(requesting string, responding string, card string) error {
+	respondingHand := deck.HandVisible(responding)
+	if len(respondingHand) == 0 {
+		return fmt.Errorf("%s has no cards", responding)
 	}
 	pos := -1
-	for i, aCard := range originHand {
+	for i, aCard := range respondingHand {
 		if strings.Compare(aCard, card) == 0 {
 			pos = i
 			break
 		}
 	}
 	if pos == -1 {
-		return fmt.Errorf("card not found in %s's hand", originName)
+		return fmt.Errorf("card not found in %s's hand", responding)
 	}
-	if pos == 0 {
-		deck.HandsVisible[originName] = deck.HandsVisible[originName][1:]
-	} else {
-		deck.HandsVisible[originName] = append(deck.HandsVisible[originName][0:pos], deck.HandsVisible[originName][pos+1:]...)
-	}
-	deck.HandsHeld[receivingName] = append(deck.HandsHeld[receivingName], card)
+	deck.HandsVisible[responding] = append(deck.HandsVisible[responding][0:pos], deck.HandsVisible[responding][pos+1:]...)
+	deck.HandsVisible[requesting] = append(deck.HandsVisible[requesting], card)
 	return nil
 }
 
@@ -324,12 +330,12 @@ func (deck *Deck) String() string {
 	players := []string{}
 
 	if len(deck.Players) == 0 {
-		for player, _ := range deck.HandsHeld {
+		for player := range deck.HandsHeld {
 			if !inList(player, players) {
 				players = append(players, player)
 			}
 		}
-		for player, _ := range deck.HandsVisible {
+		for player := range deck.HandsVisible {
 			if !inList(player, players) {
 				players = append(players, player)
 			}
@@ -343,23 +349,21 @@ func (deck *Deck) String() string {
 		if hand, ok := deck.HandsHeld[player]; ok {
 			parts = append(parts, fmt.Sprintf("%s holds %s", player, strings.Join(hand, ", ")))
 		} else {
-			parts = append(parts, fmt.Sprintf("%s holds no more cards", player))
+			parts = append(parts, fmt.Sprintf("%s holds no more card", player))
 		}
 		if hand, ok := deck.HandsVisible[player]; ok {
 			parts = append(parts, fmt.Sprintf("%s shows %s", player, strings.Join(hand, ", ")))
-		} else {
-			parts = append(parts, fmt.Sprintf("%s show no cards", player))
 		}
-		if len(deck.Play) > 0 {
-			parts = append(parts, fmt.Sprintf("%d cards left to play", len(deck.Play)))
-		} else {
-			parts = append(parts, "no cards left to play")
-		}
-		if len(deck.Discarded) > 0 {
-			parts = append(parts, fmt.Sprintf("%d cards in discard pile", len(deck.Discarded)))
-		} else {
-			parts = append(parts, "no cards in discard pile")
-		}
+	}
+	if len(deck.Play) > 0 {
+		parts = append(parts, fmt.Sprintf("%d cards left to play", len(deck.Play)))
+	} else {
+		parts = append(parts, "no cards left to play")
+	}
+	if len(deck.Discarded) > 0 {
+		parts = append(parts, fmt.Sprintf("%d cards in discard pile", len(deck.Discarded)))
+	} else {
+		parts = append(parts, "no cards in discard pile")
 	}
 	return strings.Join(parts, "\n")
 }
@@ -373,4 +377,40 @@ func (deck *Deck) ToJSON() ([]byte, error) {
 // a deck.
 func FromJSON(src []byte, deck *Deck) error {
 	return json.Unmarshal(src, &deck)
+}
+
+// Init initializes the rand number generator used in Shuffle
+func Init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func HasCard(cards []string, target string) bool {
+	for _, card := range cards {
+		if strings.Compare(card, target) == 0 {
+			return true
+		}
+	}
+	return false
+}
+
+// PickACard is an example of randomly picking a card from a list
+// of cards respecting any excluded cards (e.g. cards in someone's hand)
+func PickACard(cards []string, excluded []string) string {
+	cardsRemaining := []string{}
+	if len(excluded) == 0 {
+		cardsRemaining = append(cardsRemaining, cards...)
+	} else {
+		for _, aCard := range cards {
+			if !HasCard(excluded, aCard) {
+				cardsRemaining = append(cardsRemaining, aCard)
+			}
+		}
+		rand.Shuffle(len(cardsRemaining), func(i, j int) {
+			cardsRemaining[i], cardsRemaining[j] = cardsRemaining[j], cardsRemaining[i]
+		})
+	}
+	if len(cardsRemaining) > 0 {
+		return cardsRemaining[0]
+	}
+	return ""
 }
