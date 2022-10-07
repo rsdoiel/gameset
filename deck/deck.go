@@ -63,12 +63,12 @@ func MakeDeck(suites []string, faces []string) *Deck {
 // MakeStandardDeck creates a standard deck of playing cards.
 func MakeStandardDeck() *Deck {
 	suites := []string{
-		"Harts", "Clubs", "Diamonds", "Spades",
+		"♡", "♣", "♢", "♠",
 	}
 	faces := []string{
-		"Two", "Three", "Four", "Five",
-		"Six", "Seven", "Eight", "Nine",
-		"Ten", "Jack", "Queen", "King", "Ace",
+		"2", "3", "4", "5",
+		"6", "7", "8", "9",
+		"10", "Jack", "Queen", "King", "Ace",
 	}
 	return MakeDeck(suites, faces)
 }

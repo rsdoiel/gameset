@@ -8,17 +8,38 @@ roll
 
 # SYSNOPSIS
 
-roll DICE_ROLL_EXPR [DICE_ROLL_EXPR ...]
+roll DICE_NOTATIOJN [DICE_NOTATION ...]
 
 # DESCRIPTION
 
-roll parses the dice roll expressions and
-models the rolling of the dice described by the expressions.
-Dice roll expressions are forms by an integer (number of dice)
-the letter "d" followed by an integer (number of sides) and optionally
-follow by a plus or minus and integer which is treated as an offset.
+roll parses the [dice notation](https://en.wikipedia.org/wiki/Dice_notation)and models the rolling of the dice described by the notation.
 
 roll is part of the gameset collection of game programs.
+
+## DICE NOTATION
+
+Dice notation is formed by an integer (number of dice, A) the letter "d" followed by an integer (number of sides, X). The dice description can optionally be followed by a plus or minus and an integer (L) expressing the offset. The offset if present will be applied to the result of the dice rolled.  The roll program displays the dice notation used, the rolls and offsets if applied along with the total results. The dice notation forms are as follows.
+
+AdX
+: roll A number of dice with X sides, "3d4", "2d6", "1d8"
+
+AdX+L
+: roll A number of dice with X sides add L, "3d4+1", "2d6+2", "1d8+3"
+
+AdX-L
+: roll A number of dice with X side substract L, "3d4-1", "2d6-2", "1d8-3"
+
+
+# OPTIONS
+
+-t
+: show only the roll total
+
+-help
+: display help
+
+-version
+: display gameset version
 
 # EXAMPLE
 
