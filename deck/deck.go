@@ -5,7 +5,10 @@ package deck
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"math/rand"
+	"os"
 	"sort"
 	"strings"
 	"time"
@@ -431,4 +434,45 @@ func PickACard(cards []string, excluded []string) string {
 		return cardsRemaining[0]
 	}
 	return ""
+}
+
+// copyFile does a simple copy
+func copyFile(destName string, srcName string) error {
+	src, err := os.Open(srcName)
+	if err != nil {
+		return err
+	}
+	defer src.Close()
+	dest, err := os.Create(destName)
+	if err != nil {
+		return err
+	}
+	defer dest.Close()
+	if _, err := io.Copy(dest, src); err != nil {
+		return err
+	}
+	return nil
+}
+
+// Save writes the deck to a file, replacing an existing file
+// if it already exists.
+func (deck *Deck) Save(fName string) error {
+	if deck == nil {
+		return fmt.Errorf("deck cannot be saved, not initialized")
+	}
+	if _, err := os.Stat(fName); err == nil {
+		// It exists so rename it to fName.bak
+		backupName := fmt.Sprintf("%s.bak", fName)
+		if err := copyFile(backupName, fName); err != nil {
+			return fmt.Errorf("failed to save backup %s, %s", backupName, err)
+		}
+	}
+	src, err := json.MarshalIndent(deck, "", "    ")
+	if err != nil {
+		return fmt.Errorf("failed to encode %s, %s\n", fName, err)
+	}
+	if err := ioutil.WriteFile(fName, src, 0664); err != nil {
+		return err
+	}
+	return nil
 }

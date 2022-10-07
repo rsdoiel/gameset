@@ -60,35 +60,35 @@ hide-card
 
 # EXAMPLE
 
-Creating a new deck called "my_deck.json".
+Creating a new deck called "my_deck.cards".
 
 ```
-	cards new my_deck.json
+	cards new my_deck.cards
 ```
 
 Reset deck, resets the deck to a new state.
 
 ```
-	cards reset my_deck.json
+	cards reset my_deck.cards
 ```
 
-Setting the name for the game using "guess-cards.json".
+Setting the name for the game using "guess-cards.cards".
 Sets the name and adds two players.
 
 ```
-	cards game my_deck.json "guess a my card" "jane" "joe"
+	cards game my_deck.cards "guess my card" "jane" "joe"
 ```
 
 Shuffle cards
 
 ```
-	cards suffle my_deck.json
+	cards suffle my_deck.cards
 ```
 
 Deal cards
 
 ```
-	cards deal my_deck.json
+	cards deal my_deck.cards
 ```
 
 
