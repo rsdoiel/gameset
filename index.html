@@ -32,6 +32,24 @@ alt="Project Status: Concept – Minimal or no implementation has been done yet,
 <h1 id="gameset">Gameset</h1>
 <p>A set of go packages and command line programs for modeling simple
 games.</p>
+<p>The current gameset models dice and cards.</p>
+<h2 id="dice">dice</h2>
+<p>The dice packages models multisided dice. It is demonstrated by the
+program <code>roll</code>. The <code>roll</code> program accepts
+parameters describing the dice to be modeled in <a
+href="https://en.wikipedia.org/wiki/Dice_notation">Dice
+notation</a>.</p>
+<h2 id="deck">deck</h2>
+<p>The deck package models <a
+href="https://en.wikipedia.org/wiki/Playing_card">playing_cards</a>. It
+is demonstrated by the program <code>cards</code>. The
+<code>cards</code> program supports multiple types of playing cards and
+the back actions you might perform with a “deck” such as shuffle and
+deal. The <code>cards</code> program stores the state of the deck
+(including player’s hands) in a file using JSON encoding. The
+<code>cards</code> program does not support rules or game flow. But
+instead it can be scripted such that you can simulate a card game like
+solitare or go fish.</p>
 </section>
 
 <footer>
