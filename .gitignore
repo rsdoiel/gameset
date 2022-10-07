@@ -25,4 +25,5 @@ dist/*
 *.snap
 
 # Project based ignore
+_codemeta.json
 *.cards

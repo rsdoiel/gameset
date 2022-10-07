@@ -25,7 +25,7 @@
     ],
     "softwareRequirements": [
         "Golang 1.19.2 or better",
-        "Pandoc 2.19.2 or better",
+        "Pandoc 2.19.2 or better"
     ],
     "author": [
         {
