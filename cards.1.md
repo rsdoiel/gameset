@@ -1,6 +1,6 @@
 % cards(1) user manual
 % R. S. Doiel
-% 2022-10-01
+% 2022-10-07
 
 # NAME
 

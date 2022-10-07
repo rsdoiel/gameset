@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>R. S. Doiel, Software Engineer/Analyst - INSTALL</title>
+
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <link title="markdown source for page" rel="alternative" type="application/markdown" href="INSTALL.md">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="./">README</a></li>
+<li><a href="LICENSE">LICENSE</a></li>
+<li><a href="INSTALL.html">Installation</a></li>
+<li><a href="user-manual.html">User manual</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="https://github.com/rsdoiel/gameset">GitHub</a></li>
+</ul>
+</nav>
+
+<section>
+<!--  <h1>INSTALL</h1> -->
+
+<h1 id="installation">Installation</h1>
+<p>gameset is a proof of concept of modeling simple game elements in
+Golang as packages. It includes several command line programs
+demonstrating the use of the gameset packages. It install these programs
+you need to compile them from source code with the Golang compiler
+version 1.19.2 or better, pandoc 2.19.2 or better to make the manual
+pages and CITATION.cff.</p>
+<h2 id="getting-the-source-code">Getting the source code</h2>
+<p>The source code for gameset is available from GitHub in the <a
+href="https://github.com/rsdoiel/gameset">github.com/rsdoiel/gameset</a>.
+You can clone with with the <code>git</code> command or your favorite
+“git” GUI.</p>
+<h2 id="compiling-the-source">Compiling the source</h2>
+<p>After you cloned your repository change into the repository directory
+and run <code>make</code>. This will invoke the go compiler as well as
+Pandoc to build the project. You can then use <code>make test</code> to
+test the project and <code>make install</code> to install the project.
+By default this programs and man pages are installed in your “home”
+directory. If you wish to install them at another location set the
+PREFIX variable to the desired location.</p>
+<h3 id="installing-on-home-directory">Installing on home directory</h3>
+<pre><code>    git clone https://github.com/rsdoiel/gameset
+    cd gameset
+    make
+    make test
+    make install</code></pre>
+<h3 id="installing-in-usrlocal">Installing in
+<code>/usr/local</code></h3>
+<pre><code>    git clone https://github.com/rsdoiel/gameset
+    cd gameset
+    make
+    make test
+    make install PREFIX=/usr/local</code></pre>
+</section>
+
+<footer>
+</footer>
+
+</body>
+</html>

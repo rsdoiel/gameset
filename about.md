@@ -1,12 +1,24 @@
 ---
-title: gameset
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "gameset"
+abstract: "A collection of go packages for creating simple games."
+authors:
+  - family-names: Doiel
+    given-names: R. S.
+
+repository-code: "https://github.com/rsdoiel/gameset"
+version: 0.0.0
+license-url: "https://spdx.org/licenses/GPL-3.0-or-later"
+keywords: [ "games", "amusements" ]
+date-released: 2022-10-07
 ---
 
 About this software
 ===================
 
-gameset 0.0.0
-----------------
+## gameset 0.0.0
 
 ### Authors
 
@@ -32,5 +44,5 @@ A collection of go packages for creating simple games.
 
 ### Software Requiremets
 
-- Golang 1.19.1 or better
-
+- Golang 1.19.2 or better
+- Pandoc 2.19.2 or better

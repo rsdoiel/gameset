@@ -17,6 +17,7 @@
 <li><a href="/">Home</a></li>
 <li><a href="./">README</a></li>
 <li><a href="LICENSE">LICENSE</a></li>
+<li><a href="INSTALL.html">Installation</a></li>
 <li><a href="user-manual.html">User manual</a></li>
 <li><a href="about.html">About</a></li>
 <li><a href="https://github.com/rsdoiel/gameset">GitHub</a></li>
@@ -29,19 +30,56 @@
 <h1 id="name">NAME</h1>
 <p>roll</p>
 <h1 id="sysnopsis">SYSNOPSIS</h1>
-<p>roll DICE_ROLL_EXPR [DICE_ROLL_EXPR …]</p>
+<p>roll DICE_NOTATIOJN [DICE_NOTATION …]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p>roll parses the dice roll expressions and models the rolling of the
-dice described by the expressions. Dice roll expressions are forms by an
-integer (number of dice) the letter “d” followed by an integer (number
-of sides) and optionally follow by a plus or minus and integer which is
-treated as an offset.</p>
+<p>roll parses the <a
+href="https://en.wikipedia.org/wiki/Dice_notation">dice notation</a>and
+models the rolling of the dice described by the notation.</p>
 <p>roll is part of the gameset collection of game programs.</p>
-<h1 id="example">EXAMPLE</h1>
+<h2 id="dice-notation">DICE NOTATION</h2>
+<p>Dice notation is formed by an integer (number of dice, A) the letter
+“d” followed by an integer (number of sides, X). The dice description
+can optionally be followed by a plus or minus and an integer (L)
+expressing the offset. The offset if present will be applied to the
+result of the dice rolled. The roll program displays the dice notation
+used, the rolls and offsets if applied along with the total results. The
+dice notation forms are as follows.</p>
+<dl>
+<dt>AdX</dt>
+<dd>
+roll A number of dice with X sides, “3d4”, “2d6”, “1d8”
+</dd>
+<dt>AdX+L</dt>
+<dd>
+roll A number of dice with X sides add L, “3d4+1”, “2d6+2”, “1d8+3”
+</dd>
+<dt>AdX-L</dt>
+<dd>
+roll A number of dice with X side substract L, “3d4-1”, “2d6-2”, “1d8-3”
+</dd>
+</dl>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt>-t</dt>
+<dd>
+show only the roll total
+</dd>
+<dt>-help</dt>
+<dd>
+display help
+</dd>
+<dt>-version</dt>
+<dd>
+display gameset version
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
 <p>Rolling one twenty sided dice.</p>
 <pre><code>    roll 1d20</code></pre>
 <p>Rolling a three four sided dices plus two.</p>
 <pre><code>    roll 3d4+2</code></pre>
+<p>Rolling a four four sided dice minus two.</p>
+<pre><code>    roll 4d4-3</code></pre>
 </section>
 
 <footer>

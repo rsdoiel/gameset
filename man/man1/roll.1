@@ -14,25 +14,54 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "roll" "1" "2022-10-01" "user manual" ""
+.TH "roll" "1" "2022-10-07" "user manual" ""
 .hy
 .SH NAME
 .PP
 roll
 .SH SYSNOPSIS
 .PP
-roll DICE_ROLL_EXPR [DICE_ROLL_EXPR \&...]
+roll DICE_NOTATIOJN [DICE_NOTATION \&...]
 .SH DESCRIPTION
 .PP
-roll parses the dice roll expressions and models the rolling of the dice
-described by the expressions.
-Dice roll expressions are forms by an integer (number of dice) the
-letter \[lq]d\[rq] followed by an integer (number of sides) and
-optionally follow by a plus or minus and integer which is treated as an
-offset.
+roll parses the dice
+notation (https://en.wikipedia.org/wiki/Dice_notation)and models the
+rolling of the dice described by the notation.
 .PP
 roll is part of the gameset collection of game programs.
-.SH EXAMPLE
+.SS DICE NOTATION
+.PP
+Dice notation is formed by an integer (number of dice, A) the letter
+\[lq]d\[rq] followed by an integer (number of sides, X).
+The dice description can optionally be followed by a plus or minus and
+an integer (L) expressing the offset.
+The offset if present will be applied to the result of the dice rolled.
+The roll program displays the dice notation used, the rolls and offsets
+if applied along with the total results.
+The dice notation forms are as follows.
+.TP
+AdX
+roll A number of dice with X sides, \[lq]3d4\[rq], \[lq]2d6\[rq],
+\[lq]1d8\[rq]
+.TP
+AdX+L
+roll A number of dice with X sides add L, \[lq]3d4+1\[rq],
+\[lq]2d6+2\[rq], \[lq]1d8+3\[rq]
+.TP
+AdX-L
+roll A number of dice with X side substract L, \[lq]3d4-1\[rq],
+\[lq]2d6-2\[rq], \[lq]1d8-3\[rq]
+.SH OPTIONS
+.TP
+-t
+show only the roll total
+.TP
+-help
+display help
+.TP
+-version
+display gameset version
+.SH EXAMPLES
 .PP
 Rolling one twenty sided dice.
 .IP
@@ -47,6 +76,14 @@ Rolling a three four sided dices plus two.
 .nf
 \f[C]
     roll 3d4+2
+\f[R]
+.fi
+.PP
+Rolling a four four sided dice minus two.
+.IP
+.nf
+\f[C]
+    roll 4d4-3
 \f[R]
 .fi
 .SH AUTHORS

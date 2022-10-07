@@ -1,6 +1,6 @@
 % roll(1) user manual
 % R. S. Doiel
-% 2022-10-01
+% 2022-10-07
 
 # NAME
 
@@ -41,7 +41,7 @@ AdX-L
 -version
 : display gameset version
 
-# EXAMPLE
+# EXAMPLES
 
 Rolling one twenty sided dice.
 
@@ -53,6 +53,12 @@ Rolling a three four sided dices plus two.
 
 ```
 	roll 3d4+2
+```
+
+Rolling a four four sided dice minus two.
+
+```
+    roll 4d4-3
 ```
 
 
