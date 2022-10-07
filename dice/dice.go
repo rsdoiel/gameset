@@ -2,6 +2,7 @@ package dice
 
 import (
 	"fmt"
+	"io"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -65,11 +66,11 @@ func ParseRoll(src string) (int, int, int, error) {
 	return cnt, sides, offset, nil
 }
 
-func RollDice(args []string, displayRoll bool) (int, error) {
+func RollDice(out io.Writer, args []string, displayRoll bool) (int, error) {
 	rand.Seed(time.Now().UnixNano())
 	vargs := len(args)
 	if displayRoll && vargs > 1 {
-		fmt.Printf("(")
+		fmt.Fprintf(out, "(")
 	}
 	result := 0
 	for c, arg := range args {
@@ -79,35 +80,35 @@ func RollDice(args []string, displayRoll bool) (int, error) {
 		}
 		if displayRoll {
 			if vargs > 1 && c > 0 {
-				fmt.Printf(" + ")
+				fmt.Fprintf(out, " + ")
 			}
-			fmt.Printf("(%dd%d: ", cnt, sides)
+			fmt.Fprintf(out, "(%dd%d: ", cnt, sides)
 		}
 		roll := 0
 		for i := 0; i < cnt; i++ {
 			roll = Dice(sides)
 			if displayRoll {
 				if i > 0 {
-					fmt.Printf("+")
+					fmt.Fprintf(out, "+")
 				}
-				fmt.Printf("%d", roll)
+				fmt.Fprintf(out, "%d", roll)
 			}
 			result += roll
 		}
 		result += offset
 		if displayRoll {
 			if offset != 0 {
-				fmt.Printf(") + %d", offset)
+				fmt.Fprintf(out, ") + %d", offset)
 			} else {
-				fmt.Printf(")")
+				fmt.Fprintf(out, ")")
 			}
 		}
 	}
 	if displayRoll {
 		if vargs > 1 {
-			fmt.Printf(")")
+			fmt.Fprintf(out, ")")
 		}
-		fmt.Printf(" = %d\n", result)
+		fmt.Fprintf(out, " = %d\n", result)
 	}
 	return result, nil
 }

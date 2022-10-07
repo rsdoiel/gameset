@@ -1,15 +1,7 @@
-package main
-
-import (
-	"flag"
-	"fmt"
-	"os"
-	"path"
-	"strings"
-)
+package deck
 
 var (
-	helpText = `% {app_name}(1) user manual
+	HelpText = `% {app_name}(1) user manual
 % R. S. Doiel
 % 2022-10-01
 
@@ -39,11 +31,11 @@ data file holding the representation of the deck.
 new
 : creates a new card deck data file
 
-game
-: sets the name of the card game in the data file
+reset
+: sets the card deck back to the "new" state
 
-players
-: sets the names of players in a card deck
+game
+: sets the name of the card game and list of players
 
 shuffle
 : shuffle the whole deck of playing cards setting
@@ -77,16 +69,17 @@ Creating a new deck called "my_deck.json".
 	{app_name} new my_deck.json
 ` + "```" + `
 
+Reset deck, resets the deck to a new state.
+
+` + "```" + `
+	{app_name} reset my_deck.json
+` + "```" + `
+
 Setting the name for the game using "guess-cards.json".
+Sets the name and adds two players.
 
 ` + "```" + `
-	{app_name} game my_deck.json "guess a my card"
-` + "```" + `
-
-Add two players.
-
-` + "```" + `
-	{app_name} players my_deck.jsonn "jane" "joe"
+	{app_name} game my_deck.json "guess a my card" "jane" "joe"
 ` + "```" + `
 
 Shuffle cards
@@ -104,27 +97,3 @@ Deal cards
 
 `
 )
-
-func usage(appName string) string {
-	return strings.ReplaceAll(helpText, "{app_name}", appName)
-}
-
-func main() {
-	var (
-		showHelp      bool
-		showTotalOnly bool
-		result        int
-	)
-	appName := path.Base(os.Args[0])
-	flag.BoolVar(&showHelp, "help", false, "display help")
-	flag.BoolVar(&showTotalOnly, "t", false, "display total only")
-	flag.Parse()
-	args := flag.Args()
-	if showHelp || len(args) == 0 {
-		fmt.Printf("%s\n", usage(appName))
-		os.Exit(0)
-	}
-
-	fmt.Fprintf(os.Stderr, "%s not implemented", appName)
-	os.Exit(1)
-}

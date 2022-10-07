@@ -70,6 +70,24 @@ func MakeStandardDeck() *Deck {
 	return MakeDeck(suites, faces)
 }
 
+// Reset clears the deck's state to a "new" like state.
+//
+// ```
+//
+// deck := MakeStandardDeck()
+// deck.shuffle()
+// // now reset the deck.
+// deck.Reset()
+// ```
+func (deck *Deck) Reset() {
+	deck.Game = ""
+	deck.Players = []string{}
+	deck.Play = []string{}
+	deck.Discarded = []string{}
+	deck.HandsHeld = map[string][]string{}
+	deck.HandsVisible = map[string][]string{}
+}
+
 // SetupGame sets up an existing deck of cards for initial play.
 func (deck *Deck) SetupGame(gameName string, players []string) {
 	deck.Game = gameName

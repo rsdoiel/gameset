@@ -6,7 +6,7 @@ import (
 
 func TestDice(t *testing.T) {
 	for i := 0; i < 10000; i++ {
-	    j := Dice(4)
+		j := Dice(4)
 		if j == 0 {
 			t.Errorf("zero returned by dice roll")
 			t.FailNow()
@@ -23,11 +23,11 @@ func TestDice(t *testing.T) {
 }
 
 func TestParseRoll(t *testing.T) {
-	testRolls := map[string]bool {
-		"2d4": true,
-		"2q3": false,
-		"d4": false,
-		"1d4+5-10": true,
+	testRolls := map[string]bool{
+		"2d4":         true,
+		"2q3":         false,
+		"d4":          false,
+		"1d4+5-10":    true,
 		"1d4+1 2d4+2": false,
 	}
 	for roll, expected := range testRolls {
