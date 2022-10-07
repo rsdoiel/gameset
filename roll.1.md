@@ -13,10 +13,10 @@ roll DICE_ROLL_EXPR [DICE_ROLL_EXPR ...]
 # DESCRIPTION
 
 roll parses the dice roll expressions and
-models the rolling of the dice described by the expressions.
-Dice roll expressions are forms by an integer (number of dice)
+models the rolling of dice described by the expressions.
+Dice roll expressions are formed by an integer (number of dice)
 the letter "d" followed by an integer (number of sides) and optionally
-follow by a plus or minus and integer which is treated as an offset.
+follow by a plus or minus and an integer which is treated as an offset.
 
 roll is part of the gameset collection of game programs.
 
