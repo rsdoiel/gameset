@@ -21,9 +21,12 @@ data file holding the representation of the deck.
 
 cards is part of the gameset collection of game programs.
 
-## Supported actions
+## Actions
 
-### Deck operations
+Actions on the deck can be applied to the whole deck or
+target a players hand.
+
+### Deck
 
 new
 : creates a new card deck data file
@@ -46,7 +49,7 @@ deal-faceup
 show
 : shows the contents of the deck
 
-### player's hand operations
+### Player's hand
 
 show-hand
 : shows the all contents of a player's hand (both held and visible)
