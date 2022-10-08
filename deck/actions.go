@@ -16,7 +16,7 @@ func doNew(in io.Reader, out io.Writer, eout io.Writer, args []string) error {
 		if _, err := os.Stat(deckName); err == nil {
 			return fmt.Errorf("%s already exists", deckName)
 		}
-		deck := MakeStandardDeck()
+		deck := NewStandardDeck()
 		deck.Save(deckName)
 	}
 	return nil

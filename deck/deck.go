@@ -27,17 +27,33 @@ type Deck struct {
 	HandsVisible map[string][]string `json:"handls_visible"`
 }
 
-// MakeDeck builds an set of cards based on symbol (string)
-// and values (int). E.g.
+// AddSuite takes takes the name of a suite and the names of
+// the faces and adds them to a `*Deck.Cards`.
+func (deck *Deck) AddSuite(suite string, cards ...string) {
+	for _, card := range cards {
+		deck.Cards = append(deck.Cards, fmt.Sprintf("%s of %s", suite, card))
+	}
+}
+
+// AddCard takes a name (e.g. "joker", "rook") and adds it
+// to the `*Deck.Cards`
+func (deck *Deck) AddCard(name string) {
+	deck.Cards = append(deck.Cards, name)
+}
+
+// NewDeck builds an set of cards based on suite (slice of string)
+// and face (slice of string). It each suite will be associated with
+// a set of faces forming a set of cards. E.g.
 //
 // ```
 //
 // suites := []string{ "Hart", "Club", "Diamond", "Spade" }
 // faces := []string{ "Ace", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack","Queen", "King" }
-// deck := MakeDeck("hi_card_wins", suites, faces)
+// deck := NewDeck("hi_card_wins", suites, faces)
+// fmt.Printf("%s", deck.Show())
 //
 // ```
-func MakeDeck(suites []string, faces []string) *Deck {
+func NewDeck(suites []string, faces []string) *Deck {
 	deck := new(Deck)
 	deck.Game = ""
 	deck.Players = []string{}
@@ -46,22 +62,14 @@ func MakeDeck(suites []string, faces []string) *Deck {
 	deck.Discarded = []string{}
 	deck.HandsHeld = map[string][]string{}
 	deck.HandsVisible = map[string][]string{}
-	for _, suit := range suites {
-		for _, face := range faces {
-			var card string
-			if suit != "" {
-				card = fmt.Sprintf("%s of %s", face, suit)
-			} else {
-				card = face
-			}
-			deck.Cards = append(deck.Cards, card)
-		}
+	for _, suite := range suites {
+		deck.AddSuite(suite, faces...)
 	}
 	return deck
 }
 
-// MakeStandardDeck creates a standard deck of playing cards.
-func MakeStandardDeck() *Deck {
+// NewStandardDeck creates a standard deck of playing cards.
+func NewStandardDeck() *Deck {
 	suites := []string{
 		"♣", "♢", "♡", "♠",
 	}
@@ -70,11 +78,11 @@ func MakeStandardDeck() *Deck {
 		"6", "7", "8", "9",
 		"10", "Jack", "Queen", "King", "Ace",
 	}
-	return MakeDeck(suites, faces)
+	return NewDeck(suites, faces)
 }
 
-// MakePinochleDeck creates a Pinochle desck of playing cards.
-func MakePinochleDeck() *Deck {
+// NewPinochleDeck creates a Pinochle desck of playing cards.
+func NewPinochleDeck() *Deck {
 	suites := []string{
 		"♣", "♢", "♡", "♠",
 	}
@@ -86,11 +94,30 @@ func MakePinochleDeck() *Deck {
 		"King", "King",
 		"Ace", "Ace",
 	}
-	return MakeDeck(suites, faces)
+	return NewDeck(suites, faces)
 }
 
-// MakeRookDeck() *Deck {
-func MakeRookDeck() *Deck {
+// NewSakuraDeck creates a Sakura using hanafuda card deck
+func NewSakuraDeck() *Deck {
+	deck := new(Deck)
+	deck.Cards = []string{}
+	deck.AddSuite("pine", "crane of sun (20)", "peotry paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("plum", "bush warbler (10)", "peotry paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("cherry", "curtain (20)", "peotry paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("wisteria", "cuckoo (10)", "plain paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("iris", "eight-plank bridge (10)", "plain paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("peony", "butterflies (10)", "blue paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("bush clover", "boar (10)", "plain paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("susuki grass", "full moon (20)", "geese (10)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("chrysanthemum", "sake cup (10)", "blue paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("maple", "deer (10)", "blue paper (5)", "kasu (1)", "kasu (1)")
+	deck.AddSuite("willow", "ono no Michikaze (20)", "swallow (10)", "plain paper (5)", "lightning (1)")
+	deck.AddSuite("paulownia", "Chinese pheonix (20)", "kasu (1)", "kasu (1)", "kasu (1)")
+	return deck
+}
+
+// NewRookDeck() *Deck {
+func NewRookDeck() *Deck {
 	suites := []string{
 		"red", "yellow", "green", "black",
 	}
@@ -98,14 +125,16 @@ func MakeRookDeck() *Deck {
 		"1", "2", "3", "4", "5", "6", "7",
 		"8", "9", "10", "11", "12", "13", "14",
 	}
-	return MakeDeck(suites, faces)
+	deck := NewDeck(suites, faces)
+	deck.AddCard("rook")
+	return deck
 }
 
 // Reset clears the deck's state to a "new" like state.
 //
 // ```
 //
-// deck := MakeStandardDeck()
+// deck := NewStandardDeck()
 // deck.shuffle()
 // // now reset the deck.
 // deck.Reset()

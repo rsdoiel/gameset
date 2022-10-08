@@ -8,7 +8,7 @@ cards
 
 # SYSNOPSIS
 
-cards ACTION DECK_NAME [MODIFIERS]
+cards ACTION DECK [MODIFIERS]
 
 # DESCRIPTION
 
@@ -25,38 +25,36 @@ cards is part of the gameset collection of game programs.
 
 ### Deck operations
 
-new [OPTION=]DECK\_NAME
-: creates a new card deck data file. You specify a specialized deck
-by prefixing the DECK\_NAME with the deck type, e.g. standard, rook,
-pinochle.
+new
+: creates a new card deck data file
 
-reset DECK\_NAME
+reset
 : sets the card deck back to the "new" state
 
-game DECK\_NAME GAME\_NAME PLAYER\_NAME [PLAYER\_NAME ...]
+game
 : sets the name of the card game and list of players
 
-shuffle DECK\_NAME
+shuffle
 : shuffle the whole deck of playing cards setting
 
-deal DECK\_NAME
+deal
 : deal the cards to the players. Players list must be set previously.
 
-deal-faceup DECK\_NAME COUNT
+deal-faceup
 : deals cards to the players in a visible state
 
-show DECK\_NAME
+show
 : shows the contents of the deck
 
 ### player's hand operations
 
-show-hand DECK\_NAME PLAYER\_NAME
+show-hand
 : shows the all contents of a player's hand (both held and visible)
 
-reveal-card DECK\_NAME PLAYER\_NAME CARD
+reveal-card
 : moves a card in player's hand from held to visible
 
-hide-card DECK\_NAME PLAYER\_NAME CARD
+hide-card
 : moves a card in a player's hand from visible to held
 
 
