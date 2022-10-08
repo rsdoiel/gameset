@@ -63,12 +63,40 @@ func MakeDeck(suites []string, faces []string) *Deck {
 // MakeStandardDeck creates a standard deck of playing cards.
 func MakeStandardDeck() *Deck {
 	suites := []string{
-		"♡", "♣", "♢", "♠",
+		"♣", "♢", "♡", "♠",
 	}
 	faces := []string{
 		"2", "3", "4", "5",
 		"6", "7", "8", "9",
 		"10", "Jack", "Queen", "King", "Ace",
+	}
+	return MakeDeck(suites, faces)
+}
+
+// MakePinochleDeck creates a Pinochle desck of playing cards.
+func MakePinochleDeck() *Deck {
+	suites := []string{
+		"♣", "♢", "♡", "♠",
+	}
+	faces := []string{
+		"9", "9",
+		"10", "10",
+		"Jack", "Jack",
+		"Queen", "Queen",
+		"King", "King",
+		"Ace", "Ace",
+	}
+	return MakeDeck(suites, faces)
+}
+
+// MakeRookDeck() *Deck {
+func MakeRookDeck() *Deck {
+	suites := []string{
+		"red", "yellow", "green", "black",
+	}
+	faces := []string{
+		"1", "2", "3", "4", "5", "6", "7",
+		"8", "9", "10", "11", "12", "13", "14",
 	}
 	return MakeDeck(suites, faces)
 }
