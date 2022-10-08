@@ -27,6 +27,11 @@ type Deck struct {
 	HandsVisible map[string][]string `json:"handls_visible"`
 }
 
+// String displays the cards in a deck
+func (deck *Deck) String() string {
+	return strings.Join(deck.Cards, ", ")
+}
+
 // AddSuite takes takes the name of a suite and the names of
 // the faces and adds them to a `*Deck.Cards`.
 func (deck *Deck) AddSuite(suite string, cards ...string) {
@@ -50,7 +55,7 @@ func (deck *Deck) AddCard(name string) {
 // suites := []string{ "Hart", "Club", "Diamond", "Spade" }
 // faces := []string{ "Ace", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack","Queen", "King" }
 // deck := NewDeck("hi_card_wins", suites, faces)
-// fmt.Printf("%s", deck.Show())
+// fmt.Printf("%s", deck.String())
 //
 // ```
 func NewDeck(suites []string, faces []string) *Deck {
@@ -116,7 +121,25 @@ func NewSakuraDeck() *Deck {
 	return deck
 }
 
-// NewRookDeck() *Deck {
+// NewHwatuDeck creates a Korean style Sakura deck
+func NewHwatuDeck() *Deck {
+	deck := new(Deck)
+	deck.AddSuite("January 송학", "Bright 광", "Ribbon 띠", "Junk 피", "Junk 피")
+	deck.AddSuite("February 매화", "Animal 끗", "Ribbon 띠", "Junk 피", "Junk 피")
+	deck.AddSuite("March 벚꽃", "Bright 광", "Ribbon 띠", "Junk 피", "Junk 피")
+	deck.AddSuite("April 등꽃", "Animal 끗", "Ribbon 띠", "Junk 피", "Junk 피")
+	deck.AddSuite("May 난초", "Ribbon 띠", "Junk 피", "Junk 피", "Double Junk 쌍피")
+	deck.AddSuite("June 모란", "Animal 끗", "Ribbon 띠", "Junk 피", "Junk 피")
+	deck.AddSuite("July 흑싸리", "Animal 끗", "Ribbon 띠", "Junk 피", "Junk 피")
+	deck.AddSuite("August 공산", "Animal 끗", "Bright 광", "Junk 피", "Junk 피")
+	deck.AddSuite("September 국화", "Ribbon 띠", "Junk 피", "Junk 피", "Double Junk 쌍피")
+	deck.AddSuite("October 단풍", "Animal 끗", "Ribbon 띠", "Junk 피", "Junk 피")
+	deck.AddSuite("November 오동", "Bright 광", "Junk 피", "Junk 피", "Double Junk 쌍피")
+	deck.AddSuite("December 비", "Animal 끗", "Bright 광", "Junk 피", "Double Junk 쌍피")
+	return deck
+}
+
+// NewRookDeck creates a Rook card deck
 func NewRookDeck() *Deck {
 	suites := []string{
 		"red", "yellow", "green", "black",
@@ -402,9 +425,9 @@ func inList(target string, list []string) bool {
 	return false
 }
 
-// String returns a report on the state of cards in game
-// in a human readable form.
-func (deck *Deck) String() string {
+// Report returns the state of cards in game
+// in a human readable form as a string.
+func (deck *Deck) Report() string {
 	players := []string{}
 
 	if len(deck.Players) == 0 {
