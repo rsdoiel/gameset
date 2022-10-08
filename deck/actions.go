@@ -30,6 +30,8 @@ func doNew(in io.Reader, out io.Writer, eout io.Writer, args []string) error {
 			deck = NewHwatuDeck()
 		case "sakura":
 			deck = NewSakuraDeck()
+		case "rook":
+			deck = NewRookDeck()
 		default:
 			return fmt.Errorf("unsupported deck type %q", deckType)
 		}

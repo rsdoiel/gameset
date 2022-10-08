@@ -36,7 +36,7 @@ func (deck *Deck) String() string {
 // the faces and adds them to a `*Deck.Cards`.
 func (deck *Deck) AddSuite(suite string, cards ...string) {
 	for _, card := range cards {
-		deck.Cards = append(deck.Cards, fmt.Sprintf("%s of %s", suite, card))
+		deck.Cards = append(deck.Cards, fmt.Sprintf("%s of %s", card, suite))
 	}
 }
 
