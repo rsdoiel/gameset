@@ -16,14 +16,28 @@ func usage(appName string) string {
 
 func main() {
 	var (
-		showHelp bool
+		showHelp    bool
+		showLicense bool
+		showVersion bool
 	)
 	appName := path.Base(os.Args[0])
-	flag.BoolVar(&showHelp, "help", false, "display help")
+	flag.BoolVar(&showHelp, "help", showHelp, "display help")
+	flag.BoolVar(&showLicense, "license", showLicense, "display license")
+	flag.BoolVar(&showVersion, "version", showVersion, "display version")
 	flag.Parse()
 	args := flag.Args()
-	if showHelp || len(args) == 0 {
+
+	if showHelp {
 		fmt.Printf("%s\n", usage(appName))
+		os.Exit(0)
+	}
+	if showLicense {
+		fmt.Printf("%s\n", gameset.LicenseText)
+		fmt.Printf("%s %s\n", appName, gameset.Version)
+		os.Exit(0)
+	}
+	if showVersion {
+		fmt.Printf("%s %s\n", appName, gameset.Version)
 		os.Exit(0)
 	}
 	if len(args) == 0 {
