@@ -36,8 +36,16 @@ build: version.go $(PROGRAMS) CITATION.cff man
 version.go: .FORCE
 	@echo "package $(PROJECT)" >version.go
 	@echo '' >>version.go
+	@echo 'const (' >>version.go
 	@echo '// Version of package' >>version.go
-	@echo 'const Version = "$(VERSION)"' >>version.go
+	@echo '     Version = "$(VERSION)"' >>version.go
+	@echo '' >>version.go
+	@echo '// LicenseText shows license information' >>version.go
+	@echo '     LicenseText = `' >>version.go
+	@cat LICENSE | sed -E 's/`/`+"`"+`/g'>>version.go
+	@echo '`' >>version.go
+	@echo '' >>version.go
+	@echo ')' >>version.go
 	@echo '' >>version.go
 	@git add version.go
 
