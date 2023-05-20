@@ -1,4 +1,4 @@
-% roll(1) | user manual 0.0.0 a16616f
+% roll(1) | user manual 0.0.0 d71dc6a
 % R. S. Doiel  
 % 2023-05-20
 
