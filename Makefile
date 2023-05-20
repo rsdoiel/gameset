@@ -51,17 +51,6 @@ version.go: .FORCE
 		--template codemeta-version-go.tmpl \
 		LICENSE >version.go
 
-CITATION.cff: codemeta.json .FORCE
-	cat codemeta.json | sed -E 's/"@context"/"at__context"/g;s/"@type"/"at__type"/g;s/"@id"/"at__id"/g' >_codemeta.json
-	if [ -f $(PANDOC) ]; then echo "" | $(PANDOC) --metadata-file=_codemeta.json --template=codemeta-cff.tmpl >CITATION.cff 2>/dev/null; fi
-	if [ -f _codemeta.json ]; then rm _codemeta.json; fi
-
-about.md: codemeta.json $(PROGRAMS)
-	cat codemeta.json | sed -E 's/"@context"/"at__context"/g;s/"@type"/"at__type"/g;s/"@id"/"at__id"/g' >_codemeta.json
-	if [ -f $(PANDOC) ]; then echo "" | pandoc --metadata-file=_codemeta.json --template codemeta-md.tmpl >about.md 2>/dev/null; fi
-	if [ -f _codemeta.json ]; then rm _codemeta.json; fi
-
-
 $(PROGRAMS): $(PACKAGE)
 	@mkdir -p bin
 	go build -o "bin/$@$(EXT)" cmd/$@/*.go
