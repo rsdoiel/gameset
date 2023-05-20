@@ -31,9 +31,8 @@ func main() {
 	flag.BoolVar(&showHelp, "help", false, "display help")
 	flag.BoolVar(&showLicense, "license", false, "display license")
 	flag.BoolVar(&showVersion, "version", false, "display version")
-	flag.StringVar(&inputFName, "i", "", "read from filename")
-	flag.StringVar(&outputFName, "o", "", "write to filename")
 	flag.BoolVar(&dice.ShowTotalOnly, "t", false, "display only roll total")
+
 	flag.Parse()
 	args := flag.Args()
 

@@ -50,25 +50,16 @@ version.go: .FORCE
 		--metadata release_hash=$(RELEASE_HASH) \
 		--template codemeta-version-go.tmpl \
 		LICENSE >version.go
-##	@echo "package $(PROJECT)" >version.go
-##	@echo '' >>version.go
-##	@echo 'const (' >>version.go
-##	@echo  '    // Version number of release'>>version.go
-##	@echo '    Version = "$(VERSION)"' >>version.go
-##	@echo '' >>version.go
-##	@echo  '    // ReleaseDate, the date version.go was generated'>>version.go
-##	@echo '    ReleaseDate = "$(RELEASE_DATE)"' >>version.go
-##	@echo '' >>version.go
-##	@echo  '    // ReleaseHash, the Git hash when version.go was generated'>>version.go
-##	@echo '    ReleaseHash = "$(RELEASE_HASH)"' >>version.go
-##	@echo '' >>version.go
-##	@echo '    LicenseText = `' >>version.go
-##	@cat LICENSE >>version.go
-##	@echo '`' >>version.go
-##	@echo ')' >>version.go
-##	@echo '' >>version.go
-##	@git add version.go
-##	@if [ -f bin/codemeta ]; then ./bin/codemeta; fi
+
+CITATION.cff: codemeta.json .FORCE
+	cat codemeta.json | sed -E 's/"@context"/"at__context"/g;s/"@type"/"at__type"/g;s/"@id"/"at__id"/g' >_codemeta.json
+	if [ -f $(PANDOC) ]; then echo "" | $(PANDOC) --metadata-file=_codemeta.json --template=codemeta-cff.tmpl >CITATION.cff 2>/dev/null; fi
+	if [ -f _codemeta.json ]; then rm _codemeta.json; fi
+
+about.md: codemeta.json $(PROGRAMS)
+	cat codemeta.json | sed -E 's/"@context"/"at__context"/g;s/"@type"/"at__type"/g;s/"@id"/"at__id"/g' >_codemeta.json
+	if [ -f $(PANDOC) ]; then echo "" | pandoc --metadata-file=_codemeta.json --template codemeta-md.tmpl >about.md 2>/dev/null; fi
+	if [ -f _codemeta.json ]; then rm _codemeta.json; fi
 
 
 $(PROGRAMS): $(PACKAGE)

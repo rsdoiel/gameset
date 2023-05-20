@@ -25,5 +25,6 @@ dist/*
 *.snap
 
 # Project based ignore
+.gitconfig
 _codemeta.json
 *.cards
