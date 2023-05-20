@@ -1,6 +1,7 @@
 package dice
 
 import (
+	"bytes"
 	"testing"
 )
 
@@ -30,6 +31,8 @@ func TestParseRoll(t *testing.T) {
 		"1d4+5-10":    true,
 		"1d4+1 2d4+2": false,
 	}
+	buf := []byte{}
+	out := bytes.NewBuffer(buf)
 	for roll, expected := range testRolls {
 		_, _, _, err := ParseRoll(roll)
 		if err != nil && expected == true {
@@ -38,7 +41,7 @@ func TestParseRoll(t *testing.T) {
 		if err == nil && expected == false {
 			t.Errorf("expected failure, for ParseRoll(%q), no error found", roll)
 		}
-		_, err = RollDice([]string{roll}, false)
+		_, err = RollDice(out, []string{roll}, false)
 		if err != nil && expected == true {
 			t.Errorf("expected success for DiceRoll(%q), got error %s", roll, err)
 		}

@@ -111,8 +111,9 @@ check: .FORCE
 	for FNAME in $(shell ls -1 *.go); do go fmt $$FNAME; done
 	go vet *.go
 
-test: clean build
-	go test
+test: clean
+	cd dice && go test
+	cd deck && go test
 
 clean: 
 	-if [ -d bin ]; then rm -fR bin; fi

@@ -4,7 +4,7 @@
     "license": "https://spdx.org/licenses/GPL-3.0-or-later",
     "codeRepository": "https://github.com/rsdoiel/gameset",
     "dateCreated": "2022-10-01",
-    "datePublished": "2022-10-07",
+    "datePublished": "2023-05-20",
     "issueTracker": "https://github.com/rsdoiel/gameset/issues",
     "name": "gameset",
     "version": "0.0.0",
@@ -24,7 +24,7 @@
         "macOS"
     ],
     "softwareRequirements": [
-        "Golang 1.19.2 or better",
+        "Golang >= 1.20",
         "Pandoc 2.19.2 or better"
     ],
     "author": [

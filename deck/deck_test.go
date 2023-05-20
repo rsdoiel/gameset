@@ -7,7 +7,7 @@ import (
 )
 
 func TestDeck(t *testing.T) {
-	deck := MakeStandardDeck()
+	deck := NewStandardDeck()
 	if deck == nil {
 		t.Errorf("expected a standard deck to be made")
 		t.FailNow()
@@ -18,7 +18,7 @@ func TestDeck(t *testing.T) {
 }
 
 func TestShuffle(t *testing.T) {
-	deck := MakeStandardDeck()
+	deck := NewStandardDeck()
 	if len(deck.Play) > 0 {
 		t.Errorf("deck.Play should be empty before shuffle, %d cards %+v", len(deck.Play), deck.Play)
 	}
@@ -39,7 +39,7 @@ func TestShuffle(t *testing.T) {
 }
 
 func TestDeal(t *testing.T) {
-	deck := MakeStandardDeck()
+	deck := NewStandardDeck()
 	players := []string{"npc1", "npc2"}
 	deck.SetupGame("Test Deal", players)
 	deck.Shuffle()
@@ -68,7 +68,7 @@ func TestDeal(t *testing.T) {
 
 func TestTake(t *testing.T) {
 	// Model the simple game GoFish
-	deck := MakeStandardDeck()
+	deck := NewStandardDeck()
 	players := []string{"npc1", "npc2"}
 	deck.SetupGame("Test Go Fish", players)
 	deck.Shuffle()
@@ -129,7 +129,7 @@ func TestTake(t *testing.T) {
 }
 
 func TestDraw(t *testing.T) {
-	deck := MakeStandardDeck()
+	deck := NewStandardDeck()
 	players := []string{"npc1"}
 	deck.SetupGame("Tests Draw", players)
 	cardCount := len(deck.Play)
@@ -154,7 +154,7 @@ func TestDraw(t *testing.T) {
 
 func TestGoFish(t *testing.T) {
 	// Model the simple game GoFish
-	deck := MakeStandardDeck()
+	deck := NewStandardDeck()
 	players := []string{"npc1", "npc2"}
 	deck.SetupGame("Test Go Fish", players)
 	deck.Shuffle()

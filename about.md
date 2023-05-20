@@ -13,7 +13,7 @@ repository-code: "https://github.com/rsdoiel/gameset"
 version: 0.0.0
 license-url: "https://spdx.org/licenses/GPL-3.0-or-later"
 keywords: [ "games", "amusements" ]
-date-released: 2022-10-07
+date-released: 2023-05-20
 ---
 
 About this software
@@ -46,5 +46,5 @@ A collection of go packages for creating simple games.
 
 ### Software Requiremets
 
-- Golang 1.19.2 or better
+- Golang &gt;= 1.20
 - Pandoc 2.19.2 or better
