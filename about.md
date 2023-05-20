@@ -25,12 +25,13 @@ About this software
 
 - R. S. Doiel
 
+
+
 A collection of go packages for creating simple games.
 
-
-- License: https://spdx.org/licenses/GPL-3.0-or-later
-- GitHub: https://github.com/rsdoiel/gameset
-- Issues: https://github.com/rsdoiel/gameset/issues
+- License: <https://spdx.org/licenses/GPL-3.0-or-later>
+- GitHub: <https://github.com/rsdoiel/gameset>
+- Issues: <https://github.com/rsdoiel/gameset/issues>
 
 
 ### Programming languages

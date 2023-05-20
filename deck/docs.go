@@ -1,9 +1,9 @@
 package deck
 
 var (
-	HelpText = `% {app_name}(1) user manual
+	HelpText = `% {app_name}(1) user manual {version} {release_hash}
 % R. S. Doiel
-% 2022-10-07
+% {release_date}
 
 # NAME
 
@@ -24,9 +24,9 @@ data file holding the representation of the deck.
 
 {app_name} is part of the gameset collection of game programs.
 
-## Supported actions
+# ACTIONS
 
-### Deck operations
+## Deck operations
 
 new
 : creates a new card deck data file
@@ -60,40 +60,56 @@ reveal-card
 hide-card
 : moves a card in a player's hand from visible to held
 
+# OPTIONS
+
+-help
+: display help
+
+-license
+: display license
+
+-version
+: display version
+
+-i FILENAME
+: read from filename
+
+-o FILENAME
+: write to filename
+
 
 # EXAMPLE
 
 Creating a new deck called "my_deck.json".
 
-` + "```" + `
-	{app_name} new my_deck.json
-` + "```" + `
+~~~
+{app_name} new my_deck.json
+~~~
 
 Reset deck, resets the deck to a new state.
 
-` + "```" + `
-	{app_name} reset my_deck.json
-` + "```" + `
+~~~
+{app_name} reset my_deck.json
+~~~
 
 Setting the name for the game using "guess-cards.json".
 Sets the name and adds two players.
 
-` + "```" + `
+~~~
 	{app_name} game my_deck.json "guess a my card" "jane" "joe"
-` + "```" + `
+~~~
 
 Shuffle cards
 
-` + "```" + `
+~~~
 	{app_name} suffle my_deck.json
-` + "```" + `
+~~~
 
 Deal cards
 
-` + "```" + `
-	{app_name} deal my_deck.json
-` + "```" + `
-
+~~~
+{app_name} deal my_deck.json
+~~~
 
 `
 )

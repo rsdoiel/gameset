@@ -6,8 +6,17 @@ gameset is a proof of concept of modeling simple game elements in Golang
 as packages. It includes several command line programs demonstrating
 the use of the gameset packages.  It install these programs you need
 to compile them from source code with the Golang compiler version
-1.19.2 or better, pandoc 2.19.2 or better to make the manual pages
-and CITATION.cff.
+1.20 or better, pandoc 3 or better for compilation and documentation.
+
+Quick install with curl
+-----------------------
+
+You can a release of gameset on macOS and Linux using with curl.
+
+~~~
+curl https://rsdoiel.github.io/gameset/installer.sh | sh
+~~~
+
 
 Getting the source code
 -----------------------

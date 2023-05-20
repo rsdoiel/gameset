@@ -39,8 +39,8 @@ versioning system. cards doesn’t apply or maintain game ruleset it only
 supports managing the state of the data file holding the representation
 of the deck.</p>
 <p>cards is part of the gameset collection of game programs.</p>
-<h2 id="supported-actions">Supported actions</h2>
-<h3 id="deck-operations">Deck operations</h3>
+<h1 id="actions">ACTIONS</h1>
+<h2 id="deck-operations">Deck operations</h2>
 <dl>
 <dt>new</dt>
 <dd>
@@ -86,18 +86,41 @@ moves a card in player’s hand from held to visible
 moves a card in a player’s hand from visible to held
 </dd>
 </dl>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt>-help</dt>
+<dd>
+display help
+</dd>
+<dt>-license</dt>
+<dd>
+display license
+</dd>
+<dt>-version</dt>
+<dd>
+display version
+</dd>
+<dt>-i FILENAME</dt>
+<dd>
+read from filename
+</dd>
+<dt>-o FILENAME</dt>
+<dd>
+write to filename
+</dd>
+</dl>
 <h1 id="example">EXAMPLE</h1>
 <p>Creating a new deck called “my_deck.json”.</p>
-<pre><code>    cards new my_deck.json</code></pre>
+<pre><code>cards new my_deck.json</code></pre>
 <p>Reset deck, resets the deck to a new state.</p>
-<pre><code>    cards reset my_deck.json</code></pre>
+<pre><code>cards reset my_deck.json</code></pre>
 <p>Setting the name for the game using “guess-cards.json”. Sets the name
 and adds two players.</p>
 <pre><code>    cards game my_deck.json &quot;guess a my card&quot; &quot;jane&quot; &quot;joe&quot;</code></pre>
 <p>Shuffle cards</p>
 <pre><code>    cards suffle my_deck.json</code></pre>
 <p>Deal cards</p>
-<pre><code>    cards deal my_deck.json</code></pre>
+<pre><code>cards deal my_deck.json</code></pre>
 </section>
 
 <footer>

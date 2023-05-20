@@ -1,6 +1,6 @@
-% roll(1) user manual
-% R. S. Doiel
-% 2022-10-07
+% roll(1) | user manual 0.0.0 971caf9
+% R. S. Doiel  
+% 2023-05-20
 
 # NAME
 
@@ -16,7 +16,7 @@ roll parses the [dice notation](https://en.wikipedia.org/wiki/Dice_notation)and 
 
 roll is part of the gameset collection of game programs.
 
-## DICE NOTATION
+# DICE NOTATION
 
 Dice notation is formed by an integer (number of dice, A) the letter "d" followed by an integer (number of sides, X). The dice description can optionally be followed by a plus or minus and an integer (L) expressing the offset. The offset if present will be applied to the result of the dice rolled.  The roll program displays the dice notation used, the rolls and offsets if applied along with the total results. The dice notation forms are as follows.
 
@@ -32,33 +32,43 @@ AdX-L
 
 # OPTIONS
 
--t
-: show only the roll total
-
 -help
 : display help
 
 -version
-: display gameset version
+: display version
+
+-license
+: display license
+
+-i FILENAME
+: read from FILENAME
+
+-o FILENAME
+: Write to FILENAME
+
+-t
+: show only the roll total
+
 
 # EXAMPLES
 
 Rolling one twenty sided dice.
 
-```
+~~~
 	roll 1d20
-```
+~~~
 
 Rolling a three four sided dices plus two.
 
-```
+~~~
 	roll 3d4+2
-```
+~~~
 
 Rolling a four four sided dice minus two.
 
-```
+~~~
     roll 4d4-3
-```
+~~~
 
 
