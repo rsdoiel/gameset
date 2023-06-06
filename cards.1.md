@@ -1,6 +1,6 @@
-% cards(1) user manual 0.0.0 d71dc6a
+% cards(1) user manual 0.0.0 07bf70f
 % R. S. Doiel
-% 2023-05-20
+% 2023-06-05
 
 # NAME
 
