@@ -1,4 +1,4 @@
-% cards(1) user manual 0.0.0 2e6f043
+% cards(1) user manual 0.0.0 40648f1
 % R. S. Doiel
 % 2023-06-05
 
